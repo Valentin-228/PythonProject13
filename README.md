@@ -1,0 +1,1 @@
+Запуск тестов pytest -s -v tests/
