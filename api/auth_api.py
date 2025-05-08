@@ -1,6 +1,6 @@
 
 from custom_requester.custom_requester import CustomRequester
-from constants import LOGIN_ENDPOINT, REGISTER_ENDPOINT
+from constants import *
 
 class AuthAPI(CustomRequester):
     """
@@ -37,3 +37,13 @@ class AuthAPI(CustomRequester):
             expected_status=expected_status
         )
 
+    def authenticate(self):
+        login_data = {
+            "email": SUPER_ADMIN_USERNAME,
+            "password": SUPER_ADMIN_PASSWORD
+        }
+        response = self.auth_api.login_user(login_data)
+        token = response.json().get("accessToken")
+        if not token:
+            raise KeyError("Access token is missing in the response")
+        self._update_session_headers(authorization=f"Bearer {token}")

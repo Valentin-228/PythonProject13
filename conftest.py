@@ -1,13 +1,10 @@
 
+from film_generator.film_generator import DataGenerator
 import pytest
 import requests
-from tests.api.api_manager import ApiManager
-from constants import BASE_URL, REGISTER_ENDPOINT, LOGIN_ENDPOINT
+from api.api_manager import ApiManager
+from constants import BASE_URL
 from constants import SUPER_ADMIN_USERNAME, SUPER_ADMIN_PASSWORD
-from custom_requester.custom_requester import CustomRequester
-
-
-
 
 
 @pytest.fixture(scope="session")
@@ -57,3 +54,40 @@ def session():
     http_session = requests.Session()
     yield http_session
     http_session.close()
+
+@pytest.fixture
+def valid_movie_data():
+    return {
+        "name": DataGenerator.generate_movie_name(),
+        "imageUrl": DataGenerator.generate_image_url(),
+        "price": DataGenerator.generate_price(),
+        "description": DataGenerator.generate_description(),
+        "location": DataGenerator.generate_location(),
+        "published": DataGenerator.generate_published(),
+        "genreId": DataGenerator.generate_genre_id()
+    }
+
+
+@pytest.fixture
+def invalid_movie_data():
+    return {
+        "name": 123,
+        "imageUrl": DataGenerator.generate_image_url(),
+        "price": DataGenerator.generate_price(),
+        "description": DataGenerator.generate_description(),
+        "location": "Москва",
+        "published": DataGenerator.generate_published(),
+        "genreId": DataGenerator.generate_genre_id()
+    }
+
+@pytest.fixture
+def min_valid_movie_data():
+    return {
+        "name": DataGenerator.generate_movie_name(),
+        "price": DataGenerator.generate_price(),
+        "description": DataGenerator.generate_description(),
+        "location": DataGenerator.generate_location(),
+        "published": DataGenerator.generate_published(),
+        "genreId": DataGenerator.generate_genre_id()
+    }
+
