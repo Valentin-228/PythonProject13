@@ -42,8 +42,9 @@ class AuthAPI(CustomRequester):
             "email": SUPER_ADMIN_USERNAME,
             "password": SUPER_ADMIN_PASSWORD
         }
-        response = self.auth_api.login_user(login_data)
-        token = response.json().get("accessToken")
+        response = self.login_user(login_data).json()
+        token = response.get("accessToken")
         if not token:
-            raise KeyError("Access token is missing in the response")
+            raise KeyError("Access token is missing")
         self._update_session_headers(authorization=f"Bearer {token}")
+        return token

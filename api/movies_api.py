@@ -35,14 +35,14 @@ class MoviesAPI(CustomRequester):
             expected_status=expected_status
         )
 
-    def create_movie(self, movie_data, token, expected_status=201):
+    def create_movie(self, movie_data,  expected_status=201):
         """
         Создание нового фильма.
         :param movie_data: Данные для создания фильма.
         :param token: JWT токен для авторизации.
         :param expected_status: Ожидаемый статус-код ответа.
         """
-        self.headers["Authorization"] = f"Bearer {token}"
+
         return self.send_request(
             method="POST",
             endpoint="movies",
@@ -50,14 +50,14 @@ class MoviesAPI(CustomRequester):
             expected_status=expected_status
         )
 
-    def delete_movie(self, movie_id, token, expected_status=204):
+    def delete_movie(self, movie_id, expected_status=204):
         """
         Удаление фильма по ID.
         :param movie_id: ID фильма.
         :param token: JWT токен для авторизации.
         :param expected_status: Ожидаемый статус-код ответа.
         """
-        self.headers["Authorization"] = f"Bearer {token}"
+
         return self.send_request(
             method="DELETE",
             endpoint=f"/movies/{movie_id}",
