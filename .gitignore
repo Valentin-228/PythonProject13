@@ -1,0 +1,11 @@
+.idea/
+.venv/
+.DS_Store
+/venv/
+pycache/
+*.db
+*.xlsx
+*.log
+*.csv
+*.env
+.env
